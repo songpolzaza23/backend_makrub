@@ -4,26 +4,26 @@ const { buuAuthen } = require('./loginBuuController');
 const User = mongoose.model('profiles');
 const jwt = require('jsonwebtoken');
 
-module.exports.register = (req, res, next) => {
-    var user = new User();
-    user.username = req.body.username;
-    user.password = req.body.password;
-    user.email = req.body.email;
-    user.firstname = req.body.firstname;
-    user.lastname = req.body.lastname;
-    user.save((err, doc) => {
-        if (!err) {
-            res.send(doc)
-        } else {
-            //ถ้า eamil ซ้ำจะไม่สามารถ add ข้อมูลได้
-            if (err.code == 11000) {
-                res.status(422).send(['Duplicate email address found.']);
-            } else {
-                return next(err);
-            }
-        }
-    });
-}
+// module.exports.register = (req, res, next) => {
+//     var user = new User();
+//     user.username = req.body.username;
+//     user.password = req.body.password;
+//     user.email = req.body.email;
+//     user.firstname = req.body.firstname;
+//     user.lastname = req.body.lastname;
+//     user.save((err, doc) => {
+//         if (!err) {
+//             res.send(doc)
+//         } else {
+//             //ถ้า eamil ซ้ำจะไม่สามารถ add ข้อมูลได้
+//             if (err.code == 11000) {
+//                 res.status(422).send(['Duplicate email address found.']);
+//             } else {
+//                 return next(err);
+//             }
+//         }
+//     });
+// }
 
 module.exports.authenticate = async(req, res, next) => {
     console.log(req.body)
@@ -60,13 +60,13 @@ module.exports.authenticate = async(req, res, next) => {
     // })(req, res);
 }
 
-module.exports.userProfile = (req, res, next) => {
-    User.findOne({ _id: req._id },
-        (err, user) => {
-            if (!user)
-                return res.status(404).json({ status: false, message: 'User record not found.' });
-            else
-                return res.status(200).json({ status: true, user: user.username, password: user.password });
-        }
-    );
-}
+// module.exports.userProfile = (req, res, next) => {
+//     User.findOne({ _id: req._id },
+//         (err, user) => {
+//             if (!user)
+//                 return res.status(404).json({ status: false, message: 'User record not found.' });
+//             else
+//                 return res.status(200).json({ status: true, user: user.username, password: user.password });
+//         }
+//     );
+// }
